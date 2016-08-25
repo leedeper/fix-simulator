@@ -7,6 +7,7 @@ package com.leedeper.fixsimultor;
  * 
  * @author Leedeper
  *
+ *
  */
 public interface IMessage {
 
