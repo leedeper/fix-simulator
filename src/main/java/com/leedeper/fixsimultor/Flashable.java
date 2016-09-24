@@ -1,5 +1,5 @@
 /*
- * Created by Leedeper on Aug 21, 2016.
+ * Created by Leedeper on Sep 3, 2016.
  * All rights reserved.
  */
 package com.leedeper.fixsimultor;
@@ -7,9 +7,8 @@ package com.leedeper.fixsimultor;
  * 
  * @author Leedeper
  *
- *
  */
-public interface IMessage {
+public interface Flashable {
 
 }
 

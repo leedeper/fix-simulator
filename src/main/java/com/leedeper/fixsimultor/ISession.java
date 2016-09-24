@@ -8,7 +8,9 @@ package com.leedeper.fixsimultor;
  * @author Leedeper
  *
  */
-public interface ISession {
+public interface ISession<M> {
 
+	public String getName();
+	public boolean send(M msg);
 }
 
