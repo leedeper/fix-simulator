@@ -13,7 +13,7 @@ public interface ICondition<M> {
 	public static final ICondition   LOGOUT=new LogCondition<>();
 	public boolean match(M msg);
 	
-	public class LogCondition<M> implements ICondition<M> {
+	public final class LogCondition<M> implements ICondition<M> {
 		@Override
 		public boolean match(M msg) {
 			throw new SimulatorRuntimeException("Pls don't use this method to check. Using instanceof ");

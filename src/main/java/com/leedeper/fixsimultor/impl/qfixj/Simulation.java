@@ -14,8 +14,9 @@ import quickfix.Message;
  *
  */
 public interface Simulation {
-
+	
 	public String next(Data<Message> data);
 	public Simulation clone();
+	
 }
 

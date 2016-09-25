@@ -7,6 +7,7 @@ package com.leedeper.fixsimultor.impl.qfixj;
 import com.leedeper.fixsimultor.Data;
 import com.leedeper.fixsimultor.SimulatorRuntimeException;
 
+import quickfix.FieldMap;
 import quickfix.FieldNotFound;
 import quickfix.Message;
 
@@ -35,7 +36,7 @@ public class FromReqSimulation implements Simulation {
     	return new FromReqSimulation(field);
     }
     
-    public static void copyFromReqMsg(int field,Message msg){
+    public static void copyFromReqMsg(int field,FieldMap msg){
     	msg.setField(field,SimulationField.newField(field, new FromReqSimulation(field)));
     }
 }

@@ -13,8 +13,11 @@ import com.leedeper.fixsimultor.SimulatorFactory;
 import com.leedeper.fixsimultor.SimulatorEngine;
 import com.leedeper.fixsimultor.SimulatorException;
 import com.leedeper.fixsimultor.impl.qfixj.FromReqSimulation;
+import com.leedeper.fixsimultor.impl.qfixj.IncreaseSimulation;
 import com.leedeper.fixsimultor.impl.qfixj.MessageIteratorFactory;
 import com.leedeper.fixsimultor.impl.qfixj.QTrigger;
+import com.leedeper.fixsimultor.impl.qfixj.RandomEnumSimulation;
+import com.leedeper.fixsimultor.impl.qfixj.RandomSimulation;
 import com.leedeper.fixsimultor.impl.qfixj.SessionManager;
 import com.leedeper.fixsimultor.impl.qfixj.SimulationField;
 import com.leedeper.fixsimultor.impl.qfixj.UniqueFromReqIdCreater;
@@ -65,7 +68,6 @@ public class Starter {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -73,29 +75,19 @@ public class Starter {
 	private static Message getMarketDataTmpl(){
 		Message msg=new Message();
 		msg.getHeader().setField(new MsgType("W"));
-		// 15=AUD38=500000055=AUD/USD262=ICBC_4DD6DC5BAF0703C72F53B02D77DFE005263=1265=0
-		// 20001=CITI,DB20002=021057=0010100548267=2269=0269=110=215
-		
-		// 15=AUD38=500000055=AUD/USD262=ICBC_4DD6DC5BAF0703C72F53B02D77DFE00520001=VWAP
-		// 20003=Y268=2269=0270=0.71894271=5000000269=1270=0.71916271=5000000
-		FromReqSimulation.copyFromReqMsg(107, msg);
-		FromReqSimulation.copyFromReqMsg(15, msg);
-		FromReqSimulation.copyFromReqMsg(38, msg);
-		FromReqSimulation.copyFromReqMsg(55, msg);
+		RandomEnumSimulation.set(55, msg, "AUD","EUR","USD");
 		FromReqSimulation.copyFromReqMsg(262, msg);
-		FromReqSimulation.copyFromReqMsg(21057, msg);
-		FromReqSimulation.copyFromReqMsg(21058, msg);
-		msg.setString(20001, "VWAP");
-		msg.setString(20003, "Y");
+		
 		Group g=new Group(268,0);
 		g.setString(269, "0");
-		g.setString(270, "0.71894");
-		g.setString(271, "5000000");
+		g.setField(270,SimulationField.newField(270, new RandomSimulation("0.71777","0.71888")));
+		g.setDouble(271, 5000000);
 		msg.addGroup(g);
+		
 		g=new Group(268,0);
 		g.setString(269, "1");
-		g.setString(270, "0.71916");
-		g.setString(271, "5000000");
+		g.setField(270, SimulationField.newField(270,new IncreaseSimulation("0.71916")));
+		g.setDouble(271, 5000000);
 		msg.addGroup(g);
 		return msg;
 	} 

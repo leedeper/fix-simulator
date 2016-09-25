@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.leedeper.fixsimultor.Data;
 
+import quickfix.FieldMap;
 import quickfix.Message;
 
 /**
@@ -35,6 +36,10 @@ public class RandomEnumSimulation implements Simulation{
     @Override
     public Simulation clone() {
     	return new RandomEnumSimulation(values);
+    }
+    
+    public static void set(int field,FieldMap msg,String ...values){
+    	msg.setField(field, new SimulationField(field, new RandomEnumSimulation(values)));
     }
 }
 

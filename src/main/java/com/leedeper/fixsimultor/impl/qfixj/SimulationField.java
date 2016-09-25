@@ -7,6 +7,7 @@ package com.leedeper.fixsimultor.impl.qfixj;
 import com.leedeper.fixsimultor.Data;
 
 import quickfix.Field;
+import quickfix.FieldMap;
 import quickfix.Message;
 
 /**
@@ -36,5 +37,9 @@ public class SimulationField extends Field<String> {
     public static SimulationField newField(int field, Simulation simulation){
     	return new SimulationField(field, simulation);
     }
+/*    public static void setField(int field,Simulation simulation, FieldMap msg){
+    	msg.setField(field, simulation);
+    	return new SimulationField(field, simulation);
+    }*/
 }
 
