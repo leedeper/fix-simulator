@@ -14,6 +14,7 @@ import com.leedeper.fixsimultor.SimulatorEngine;
 import com.leedeper.fixsimultor.SimulatorException;
 import com.leedeper.fixsimultor.impl.qfixj.FromReqSimulation;
 import com.leedeper.fixsimultor.impl.qfixj.IncreaseSimulation;
+import com.leedeper.fixsimultor.impl.qfixj.JexlSimulation;
 import com.leedeper.fixsimultor.impl.qfixj.MessageIteratorFactory;
 import com.leedeper.fixsimultor.impl.qfixj.QTrigger;
 import com.leedeper.fixsimultor.impl.qfixj.RandomEnumSimulation;
@@ -39,7 +40,6 @@ public class Starter {
 	 */
 	public static void main(String[] args) throws SimulatorException {
 
-		
 		// 1. create the engine
 		SimulatorEngine engine=new SimulatorEngine();
 		engine.setSimualtorFactory(new SimulatorFactory());
@@ -73,13 +73,18 @@ public class Starter {
 
 	}
 	private static Message getMarketDataTmpl(){
+		// request message as 
+		// 8=FIX.4.39=12035=V34=249=CLIENT52=20160925-10:20:11.03256=CLIENT_PRICE262=REQ_001263=1264=2146=155=AUD/USD267=2269=0269=110=003
 		Message msg=new Message();
 		msg.getHeader().setField(new MsgType("W"));
 		RandomEnumSimulation.set(55, msg, "AUD","EUR","USD");
 		FromReqSimulation.copyFromReqMsg(262, msg);
 		
+		//hypothetical condition, just show how to use experssion
+		msg.setField(291, SimulationField.newField(291,new JexlSimulation("size(getGroups(267))==2?'2':'1'")));
 		Group g=new Group(268,0);
 		g.setString(269, "0");
+		//TODO I will simplify it setFiled(xx,yy(xx,zz))
 		g.setField(270,SimulationField.newField(270, new RandomSimulation("0.71777","0.71888")));
 		g.setDouble(271, 5000000);
 		msg.addGroup(g);

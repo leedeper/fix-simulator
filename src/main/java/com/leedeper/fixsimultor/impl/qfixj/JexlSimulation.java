@@ -25,8 +25,8 @@ public class JexlSimulation  implements Simulation {
 	private JexlEngine jexl = new JexlBuilder().create();
 	public JexlSimulation(String expressionStr){
 		this.expressionStr=expressionStr;
-	   // String jexlExp = "getGroups(268)[0].isSetField(270)?getGroups(268)[0].getDouble(270).intValue()+2:'no268'";
-	    //String jexlExp="addGroup(new('quickfix.Group',800,0)),hasGroups(800)";
+	    // for example "getGroups(268)[0].isSetField(270)?getGroups(268)[0].getDouble(270).intValue()+2:'no268'";
+	    //TODO I will simplify it can be as //268[0].isSetField(270)?//268[0]//270D.intValue()+2 : 'no270'"
 	    expression = jexl.createExpression( expressionStr );
 	}
 	
